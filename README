@@ -5,6 +5,16 @@
 
 This is the GitHub repo that we used. There are setup instructions on there to get Supabase working as well as the Chat UI frontend. The class extended this existing project and added a backend that converted files and connected it to a local Llama model.
 
+
+Admin Page to upload/delete files
+>  {url}/admin
+
+Page to use 🐈bot
+> /{url}
+
+Supabase url
+> http://localhost:54323/project/default/editor
+
 ## Supabase Install
 
 1.  Install Supabase from Homebrew:

@@ -29,7 +29,7 @@ async def fetch_files(file_names):
 
     try:
         # Load environment variables
-        supabase_url = os.getenv("SUPABASE_UR")
+        supabase_url = os.getenv("SUPABASE_URL")
         supabase_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
         supabase_client = supabase.create_client(supabase_url, supabase_key)
                 
