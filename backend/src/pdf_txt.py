@@ -27,7 +27,7 @@ vectorstore = FAISS.from_documents(split_docs, embeddings)
 retriever = vectorstore.as_retriever()
 
 # === 4. LLaMA + RAG pipeline ===
-llm = ChatOllama(base_url="http://localhost:11434", model="llama3")
+llm = ChatOllama(base_url="http://10.10.129.80:11435", model="llama3")
 
 prompt = ChatPromptTemplate.from_template("""
 Use the following context to answer the question.
