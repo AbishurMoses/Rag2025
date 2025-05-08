@@ -1,0 +1,8 @@
+langchain
+langchain-core
+langchain-ollama
+langchain-community
+langchain-huggingface
+sentence-transformers
+faiss-cpu
+transformers==4.39.3

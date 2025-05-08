@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  saurag-ui:
+    container_name: saurag-ui
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    networks:
+      - supabase_network_chatbotui
+
+networks:
+  supabase_network_chatbotui:
+    external: true
