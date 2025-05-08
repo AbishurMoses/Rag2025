@@ -1,0 +1,119 @@
+# Documentation Notes for Setup
+
+**Base Project:**
+[https://github.com/mckaywrigley/chatbot-ui](https://github.com/mckaywrigley/chatbot-ui)
+
+This is the GitHub repo that we used. There are setup instructions on there to get Supabase working as well as the Chat UI frontend. The class extended this existing project and added a backend that converted files and connected it to a local Llama model.
+
+## Supabase Install
+
+1.  Install Supabase from Homebrew:
+    ```bash
+    # (Assuming Homebrew is installed - specific command may vary)
+    brew install supabase/tap/supabase-cli
+    ```
+2.  Run Supabase start to start Docker images:
+    ```bash
+    supabase start
+    ```
+3.  Database Modifications:
+    * Add the `role` column to the `profiles` table with type `TEXT`.
+    * Create new buckets named `pdf` and `ragfiles`.
+    * Create RLS policies for allowing add, delete to both (see policy examples below).
+
+## Front End & Back End Setup
+
+1.  Clone the GitHub repository:
+    ```bash
+    git clone <repository_url>
+    ```
+    *(Replace `<repository_url>` with the actual URL of the extended project)*
+
+### Backend
+
+1.  Set up a virtual environment under the `backend` directory:
+    ```bash
+    cd backend
+    python -m venv venv
+    ```
+2.  Activate virtual environment:
+    * macOS/Linux:
+        ```bash
+        source venv/bin/activate
+        ```
+    * Windows:
+        ```bash
+        venv\Scripts\activate
+        ```
+3.  Install all the required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+    *(Assuming a `requirements.txt` file exists)*
+4.  Run the `app.py`:
+    ```bash
+    python app.py
+    ```
+
+### Front End
+
+1.  Change directory to the `client` folder:
+    ```bash
+    cd client
+    ```
+    *(Or `cd frontend` or similar, depending on the cloned project structure)*
+2.  Run `npm install`:
+    ```bash
+    npm install
+    ```
+3.  Run `npm run chat`:
+    ```bash
+    npm run chat
+    ```
+
+---
+
+## Supabase RLS Policies
+
+### Delete Policies
+
+```sql
+-- Policy to allow admins to delete any files in the 'pdf' bucket
+CREATE POLICY "Allow admin deletes pdf"
+ON storage.objects
+FOR DELETE
+TO authenticated
+USING (
+    bucket_id = 'pdf'
+    AND EXISTS (
+        SELECT 1
+        FROM public.profiles
+        WHERE user_id = auth.uid()
+        AND role = 'admin'
+    )
+);
+
+-- Grant DELETE permission to authenticated users (policy will restrict to admins)
+-- Note: This grant might already exist or might be too broad depending on default Supabase setup.
+-- Ensure your RLS policy is the effective means of restriction.
+-- GRANT DELETE ON storage.objects TO authenticated;
+
+
+-- Policy to allow admins to delete any files in the 'ragfiles' bucket
+CREATE POLICY "Allow admin deletes ragfiles"
+ON storage.objects
+FOR DELETE
+TO authenticated
+USING (
+    bucket_id = 'ragfiles'
+    AND EXISTS (
+        SELECT 1
+        FROM public.profiles
+        WHERE user_id = auth.uid()
+        AND role = 'admin'
+    )
+);
+
+-- Grant DELETE permission to authenticated users (policy will restrict to admins)
+-- As above, review if this specific GRANT statement is necessary or if default permissions + RLS are sufficient.
+-- GRANT DELETE ON storage.objects TO authenticated;

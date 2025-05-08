@@ -94,8 +94,8 @@ def answer_question(question: str) -> dict:
         retriever = vectorstore.as_retriever(search_kwargs={"k": 5})  # Retrieve top 5 most relevant chunks
 
         # === 4. LLaMA + RAG pipeline ===
-        llm = ChatOllama(base_url="http://localhost:11434", model="llama3")
-
+        llm = ChatOllama(base_url="http://10.10.129.80:11435", model="llama3")
+        
         prompt = ChatPromptTemplate.from_template("""
         Use the following context to answer the question.
         When citing information, refer to the 'Source Filename' provided with the context.

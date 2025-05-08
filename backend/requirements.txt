@@ -6,3 +6,9 @@ langchain-huggingface
 sentence-transformers
 faiss-cpu
 transformers==4.39.3
+transformers==4.39.3
+dotenv
+supabase
+flask_cors
+flask
+pdf2image
