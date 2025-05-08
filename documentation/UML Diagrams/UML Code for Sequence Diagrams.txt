@@ -1,0 +1,106 @@
+-- Login Sequence --
+
+@startuml
+title Login Sequence (User or Admin)
+actor User
+participant "Chat Frontend" as UI
+participant "Supabase Auth" as Auth
+
+User -> UI : Enter credentials
+UI -> Auth: Authorize Credentials
+Auth --> UI : Login Success
+UI --> User : Session Started
+@enduml
+
+-- Handle Invalid Password --
+
+@startuml
+title Handle Invalid Password
+actor User
+participant "Chat Frontend" as UI
+participant "Supabase Auth" as Auth
+
+User -> UI : Enter credentials
+UI -> Auth : Authorize Credentials
+Auth --> UI : Invalid Password + Display Error
+@enduml 
+
+
+
+
+
+
+-- Ask Question Sequence --
+
+@startuml
+title Ask Question Sequence
+actor User
+participant "Chat Frontend" as API
+participant "RAG + Retrieval" as RAG
+participant "Supabase Storage" as Storage
+participant "llama3" as LLM
+
+User -> API : Ask Question
+API -> RAG : Process question
+RAG -> Storage: Retrieve Context
+RAG -> LLM : Send context + question
+LLM --> RAG : Return answer
+RAG --> API : Return answer + sources
+@enduml
+
+-- Return File Context (Answer Extension) --
+
+@startuml
+title Return File Context (Answer Extension)
+participant "RAG + Retrieval" as RAG
+participant "Supabase Storage" as Storage
+
+RAG -> Storage : Retrieve Source Metadata
+Storage --> RAG : Return File Info
+@enduml
+
+
+
+
+
+-- Upload PDF Sequence (Admin) --
+
+@startuml
+title Upload PDF Sequence (Admin)
+actor Admin
+participant "Chat Frontend" as UI
+participant "Supabase Storage" as Storage
+
+Admin -> UI : Upload PDF
+UI -> Storage : Save PDF (if correct format)
+UI --> UI : Incorrect File Format (if incorrect format)
+Storage --> UI : Upload Confirmation
+@enduml
+
+-- Convert PDF to Text via OCR --
+
+@startuml
+title Convert PDF to Text via OCR
+participant "Supabase Storage" as Storage
+participant "DOCTR (OCR)" as OCR
+
+Storage -> OCR : Process PDF
+OCR --> Storage: Save Extracted Text into File
+@enduml
+
+
+-- Delete Text Sequence (Admin) --
+
+@startuml
+title Delete Text Sequence (Admin)
+actor Admin
+participant "Chat Frontend" as UI
+participant "Supabase Storage" as Storage
+
+Admin -> UI : Request Delete File
+UI -> Storage : Find Text associated with file
+Storage -> Storage : Delete Text File (if exists)
+Storage --> UI : File not Found (if not exists)
+Storage --> UI : Confirmation of Removal
+@enduml
+

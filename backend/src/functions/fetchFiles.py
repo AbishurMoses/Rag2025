@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
+load_dotenv()
+
 async def fetch_files(file_names):
     """
     Fetches specified files from the 'pdf' storage in Supabase, downloads them, and saves them to the 'pdf_files' directory.

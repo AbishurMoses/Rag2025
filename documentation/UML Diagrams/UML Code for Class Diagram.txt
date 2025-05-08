@@ -1,0 +1,75 @@
+-- UML Class Diagram --
+
+@startuml
+skinparam classAttributeIconSize 0
+skinparam style strictuml
+
+' === Logical Service Classes Based on Actual Code ===
+
+class FlaskApp {
+  +/convertFiles()
+  +/convertAll()
+  +/content()
+}
+
+class SupabaseStorage {
+  -supabase_url: str
+  -supabase_key: str
+  +upload_file(filename, data): bool
+  +fetch_pdf_files(): list
+  +fetch_text_files(): list
+}
+
+class OCRService {
+  +better_ocr(): void
+}
+
+class FileHandler {
+  +fetch_files(file_names: list): list
+  +fetch_all_files(): list
+  +fetch_txt_files(): list
+  +upload_txt_files(): list
+}
+
+class RAGPipeline {
+  +answer_question(question: str): dict
+  -load_txt_documents(): list
+  -split_documents(): list
+  -create_embeddings(): object
+  -retrieve_context(): list
+}
+
+class LLMClient {
+  -model: llama3
+  +generate_answer(prompt: str): str
+}
+
+class LangChain {
+  +FAISS
+  +Retriever
+  +PromptTemplate
+  +ChatOllama
+  +RunnableParallel
+  +RunnablePassthrough
+  +HuggingFaceEmbeddings
+}
+
+class AuthSystem {
+  +login(): bool
+  +handle_invalid_password(): void
+}
+
+' === Relationships ===
+FlaskApp --> FileHandler
+FlaskApp --> RAGPipeline
+FlaskApp --> OCRService
+FlaskApp --> SupabaseStorage
+FlaskApp --> AuthSystem
+
+FileHandler --> SupabaseStorage
+OCRService --> SupabaseStorage : stores extracted text
+RAGPipeline --> SupabaseStorage : loads txt files
+RAGPipeline --> LangChain
+RAGPipeline --> LLMClient
+
+@enduml

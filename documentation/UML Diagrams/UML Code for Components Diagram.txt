@@ -1,0 +1,26 @@
+-- Components Diagram --
+
+@startuml
+left to right direction
+skinparam componentStyle uml2
+
+package "Chatbot System - Components Diagram" {
+
+component "Chat Frontend" as UI
+component "Flask API" as API
+component "Supabase Storage" as DB
+component "Supabase Auth" as AUTH
+component "OCR (DOCTR)" as OCR
+component "RAG + Retrieval" as RAG
+component "LLM (LLaMA3)" as LLM
+
+' === Associations ===
+UI --> API : REST Calls
+API --> DB : Upload/Delete PDFs, Get Text
+API --> OCR : OCR Processing
+API --> RAG : Ask Question
+RAG --> DB : Retrieve Context
+RAG --> LLM : Get Answer
+UI --> AUTH : Login/Auth
+}
+@enduml

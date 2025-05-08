@@ -34,16 +34,16 @@ This is the GitHub repo that we used. There are setup instructions on there to g
 1.  Set up a virtual environment under the `backend` directory:
     ```bash
     cd backend
-    python -m venv venv
+    python -m venv {name}
     ```
 2.  Activate virtual environment:
     * macOS/Linux:
         ```bash
-        source venv/bin/activate
+        source {name}/bin/activate
         ```
     * Windows:
         ```bash
-        venv\Scripts\activate
+        {name}\Scripts\activate
         ```
 3.  Install all the required packages:
     ```bash
@@ -72,6 +72,9 @@ This is the GitHub repo that we used. There are setup instructions on there to g
     ```
 
 ---
+
+## Ollama llama3 setup
+
 
 ## Supabase RLS Policies
 

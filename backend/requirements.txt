@@ -9,6 +9,9 @@ transformers==4.39.3
 transformers==4.39.3
 dotenv
 supabase
-flask_cors
 flask
+flask-cors
 pdf2image
+torch
+supabase
+python-doctr[torch]

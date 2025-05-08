@@ -1,0 +1,45 @@
+-- Use Case Diagram --
+
+
+@startuml
+left to right direction
+
+actor User
+actor Admin
+
+rectangle "Chatbot System - Use Case Diagram" {
+    usecase "Login" as UC_Login
+    usecase "Ask Question" as UC_Ask
+    usecase "Return Answer" as UC_Answer
+    usecase "Upload PDF" as UC_Upload
+    usecase "Delete Text" as UC_Delete
+    usecase "Convert PDF to Text via OCR" as UC_Convert
+ 
+
+    ' Extended use cases
+    usecase "Handle Invalid Password" as UC_BadLogin
+    usecase "Return File Context" as UC_Context
+}
+
+' Actor connections
+User --> UC_Ask
+User --> UC_Answer
+User --> UC_Login
+
+Admin --> UC_Upload
+Admin --> UC_Delete
+Admin --> UC_Login
+
+' Includes (required behaviors)
+UC_Ask ..> UC_Login : <<include>>
+UC_Answer ..> UC_Login : <<include>>
+UC_Upload ..> UC_Login : <<include>>
+UC_Delete ..> UC_Login : <<include>>
+
+UC_Upload ..> UC_Convert : <<include>>
+
+' Extends (conditional behaviors)
+UC_Login ..> UC_BadLogin : <<extend>>
+UC_Answer ..> UC_Context : <<extend>>
+
+@enduml
