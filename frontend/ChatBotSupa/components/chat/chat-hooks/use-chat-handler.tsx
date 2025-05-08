@@ -665,7 +665,7 @@ export const useChatHandler = () => {
       // Send only the prompt to the Python backend
       setToolInUse("python_client")
 
-      const response = await fetch("http://localhost:5000/content", {
+      const response = await fetch("http://10.10.129.80:5000/content", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

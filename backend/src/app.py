@@ -14,7 +14,7 @@ import traceback
 app = Flask(__name__, static_folder='frontend')
 
 # Allow requests from localhost:3000 to ALL routes the app
-CORS(app, origins=["http://localhost:3000"])
+CORS(app, origins=["http://localhost:3000", "http://10.10.129.80:3000"])
 
 # logging for detailed error tracking
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
