@@ -29,8 +29,8 @@ async def fetch_files(file_names):
 
     try:
         # Load environment variables
-        supabase_url = "http://127.0.0.1:54321"
-        supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+        supabase_url = os.getenv("SUPABASE_UR")
+        supabase_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
         supabase_client = supabase.create_client(supabase_url, supabase_key)
                 
         if not supabase_url or not supabase_key:
