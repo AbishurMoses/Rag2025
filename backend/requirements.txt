@@ -15,3 +15,4 @@ pdf2image
 torch
 supabase
 python-doctr[torch]
+flask[async]

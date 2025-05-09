@@ -5,6 +5,9 @@ import os
 import errno
 import glob
 import logging
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configure logging
 logger = logging.getLogger(__name__)
