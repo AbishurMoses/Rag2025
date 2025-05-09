@@ -5,9 +5,9 @@ import os
 import errno
 import glob
 import logging
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -23,8 +23,10 @@ async def upload_txt_files():
     """
     try:
         # Initialize Supabase client
-        supabase_url = os.getenv("SUPABASE_URL")
-        supabase_key = os.getenv("SUPABASE_KEY")
+        supabase_url = "http://127.0.0.1:54321"
+        supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+        # supabase_url = os.getenv("SUPABASE_URL")
+        # supabase_key = os.getenv("SUPABASE_KEY")
         
         if not supabase_url or not supabase_key:
             logger.error("SUPABASE_URL or SUPABASE_KEY environment variables are not set")
