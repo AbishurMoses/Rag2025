@@ -89,7 +89,9 @@ Supabase url
 ---
 
 ## Ollama llama3 setup
-
+1. Install ollama
+2. ollama pull llama3
+3. ollama serve
 
 ## Supabase RLS Policies
 
